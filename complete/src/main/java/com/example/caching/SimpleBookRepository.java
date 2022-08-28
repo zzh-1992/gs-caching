@@ -23,6 +23,12 @@ public class SimpleBookRepository implements BookRepository {
         return new Book(isbn, "Some book");
     }
 
+    @Cacheable(value = "books", cacheManager = "ehCacheCacheManager")
+    public Book getByIsbnWithEhCache(String isbn) {
+        simulateSlowService();
+        return new Book(isbn, "Some book");
+    }
+
     // Don't do this at home
     private void simulateSlowService() {
         try {
